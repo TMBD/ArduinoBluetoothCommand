@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">ArduinoBluetoothCommand</string>
+    <string name="action_settings">Settings</string>
+    <string name="ms_Bluetooth_not_suppoted">You device doesn\'t support bluetooth</string>
+    <string name="ms_can_paire_bluetooth">Your bluetooth is enable now, you can paire with other devices</string>
+    <string name="ms_invite_enable_bluetooth">To pair with other devices, you have to enable you bluetooth</string>
+    <string name="robotech">ROBOTECH-ESP</string>
+    <string name="label_send_bt">Send</string>
+</resources>
