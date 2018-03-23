@@ -1,5 +1,6 @@
 package com.thiernombd.arduinobluetoothcommand;
 
+import android.bluetooth.BluetoothAdapter;
 import android.support.v7.widget.RecyclerView;
 import android.text.Layout;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import java.util.List;
 public class BluetoothConnectionAdapter extends RecyclerView.Adapter<BluetoothConnectionAdapter.MyViewHolder> {
     private final List<_BluetoothDevice> devicesObjectList;
     public boolean paired = false;
+
 
 
     public BluetoothConnectionAdapter(List<_BluetoothDevice> devicesObjectList, boolean paired){
@@ -58,6 +60,7 @@ public class BluetoothConnectionAdapter extends RecyclerView.Adapter<BluetoothCo
         private final View currentItemView;
         private int position;
 
+        BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
         public MyViewHolder(final View itemView) {
             super(itemView);
@@ -75,7 +78,7 @@ public class BluetoothConnectionAdapter extends RecyclerView.Adapter<BluetoothCo
                 public void onClick(View v) {
                     MainActivity.bSocket = null;
                     Toast.makeText(itemView.getContext(), "Connexion avec "+currentDevice.deviceName+"...", Toast.LENGTH_LONG).show();
-                    BluetoothConnectionActivity.mBluetoothAdapter.cancelDiscovery();
+                    mBluetoothAdapter.cancelDiscovery();
                     BluetoothClient clientBluetooth = new BluetoothClient(currentDevice.device);
                     clientBluetooth.start();
                     if(MainActivity.bSocket == null) {

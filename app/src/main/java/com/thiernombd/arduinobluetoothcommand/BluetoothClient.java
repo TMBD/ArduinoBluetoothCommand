@@ -1,5 +1,6 @@
 package com.thiernombd.arduinobluetoothcommand;
 
+import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.util.Log;
@@ -7,7 +8,7 @@ import android.util.Log;
 import java.io.IOException;
 import java.util.UUID;
 
-import static com.thiernombd.arduinobluetoothcommand.BluetoothConnectionActivity.mBluetoothAdapter;
+
 
 /**
  * Created by Thierno_M_B_DIALLO on 09/03/2018.
@@ -17,6 +18,7 @@ public class BluetoothClient extends Thread {
     private static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
     private final BluetoothSocket mmSocket;
     private final BluetoothDevice mmDevice;
+    BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
     private static final String TAG = "MY_APP_DEBUG_TAG";
 

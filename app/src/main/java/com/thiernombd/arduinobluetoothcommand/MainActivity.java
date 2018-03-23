@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     public static final int MESSAGE_TOAST = 2;
 
 
-    final private Handler mHandler = new Handler(){
+    /*final private Handler mHandler = new Handler(){
         @Override
         public void handleMessage(Message msg){
             super.handleMessage(msg);
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, msgToast, Toast.LENGTH_LONG).show();
             }
         }
-    };
+    };*/
 
 
     @Override
@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
         send_bt = (Button) findViewById(R.id.send_bt);
         output_tv = (TextView) findViewById(R.id.output_tv);
 
-        send_bt.setOnClickListener(new View.OnClickListener() {
+        /*send_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String inputContent = input_et.getText().toString();
@@ -116,15 +116,15 @@ public class MainActivity extends AppCompatActivity {
 
                 }else Toast.makeText(MainActivity.this, "Veullez ecrire le texte à envoyer", Toast.LENGTH_LONG).show();
             }
-        });
+        });/*
 
         //////////////////////////////////////////////////////////////////////////////////
 
         ///////////////////////////////TO DO AT THE END OF THE ONCREATE////////////////////////////////
-        bluetoothHandler = new BluetoothHandler(mHandler);
+        /*bluetoothHandler = new BluetoothHandler(mHandler);
         serverBluetooth = new ServerBluetooth(mBluetoothAdapter);
-        serverBluetooth.start();
-    }//En de of onCreate
+        serverBluetooth.start();*/
+    }//End of onCreate
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -161,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+/*
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -169,6 +170,6 @@ public class MainActivity extends AppCompatActivity {
         if(connectedThread != null)connectedThread.cancel();
     }
 
-
+*/
 
 }
