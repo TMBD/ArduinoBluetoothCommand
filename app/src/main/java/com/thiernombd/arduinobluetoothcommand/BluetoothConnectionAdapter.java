@@ -1,6 +1,7 @@
 package com.thiernombd.arduinobluetoothcommand;
 
 import android.bluetooth.BluetoothAdapter;
+import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.text.Layout;
 import android.view.LayoutInflater;
@@ -20,12 +21,14 @@ import java.util.List;
 public class BluetoothConnectionAdapter extends RecyclerView.Adapter<BluetoothConnectionAdapter.MyViewHolder> {
     private final List<_BluetoothDevice> devicesObjectList;
     public boolean paired = false;
+    Handler conHandler = null;
 
 
 
-    public BluetoothConnectionAdapter(List<_BluetoothDevice> devicesObjectList, boolean paired){
+    public BluetoothConnectionAdapter(List<_BluetoothDevice> devicesObjectList, boolean paired, Handler handler){
         this.devicesObjectList = devicesObjectList;
         this.paired = paired;
+        this.conHandler = handler;
     }
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
@@ -77,14 +80,14 @@ public class BluetoothConnectionAdapter extends RecyclerView.Adapter<BluetoothCo
                 @Override
                 public void onClick(View v) {
                     MainActivity.bSocket = null;
-                    Toast.makeText(itemView.getContext(), "Connexion avec "+currentDevice.deviceName+"...", Toast.LENGTH_LONG).show();
-                    mBluetoothAdapter.cancelDiscovery();
-                    BluetoothClient clientBluetooth = new BluetoothClient(currentDevice.device);
+                    Toast.makeText(itemView.getContext(), "Connexion avec "+currentDevice.deviceName+"...", Toast.LENGTH_SHORT).show();
+                    //if(mBluetoothAdapter.isDiscovering()) mBluetoothAdapter.cancelDiscovery();
+                    BluetoothClient clientBluetooth = new BluetoothClient(currentDevice.device, conHandler);
                     clientBluetooth.start();
-                    if(MainActivity.bSocket == null) {
+                    /*if(MainActivity.bSocket == null) {
                         Toast.makeText(v.getContext(), "La connexion a echoué", Toast.LENGTH_SHORT).show();
                         clientBluetooth.cancel();
-                    }
+                    }else Toast.makeText(v.getContext(), "Connexion etablie", Toast.LENGTH_SHORT).show();*/
                 }
 
             });
@@ -106,6 +109,15 @@ public class BluetoothConnectionAdapter extends RecyclerView.Adapter<BluetoothCo
         notifyItemRemoved(position);
         notifyItemRangeRemoved(position,devicesObjectList.size());
     }
+
+
+    public void removeAllDeviceIn_rv(){
+        int size = devicesObjectList.size();
+        devicesObjectList.clear();
+        notifyItemRangeRemoved(0, size);
+        notifyItemRangeRemoved(0,devicesObjectList.size());
+    }
+
 
     public void addDeviceIn_rv(int position, _BluetoothDevice device){
         devicesObjectList.add(position,device);

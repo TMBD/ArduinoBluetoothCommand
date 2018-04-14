@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="ms_Bluetooth_not_suppoted">Votre appareil ne support le bluetooth</string>
-
+    <string name="action_settings">Regalges</string>
+    <string name="ms_Bluetooth_not_suppoted">Votre appareil n\'a pas de bluetooth !</string>
+    <string name="ms_can_paire_bluetooth">Votre bluetooth est actif maintenant, vous pouvez vous connecter avec d\'autres appareils</string>
+    <string name="ms_invite_enable_bluetooth">Pour vous connecter avec d\'autres appareils, vous devez activer votre bluetooth</string>
+    <string name="label_send_bt">Envoyer</string>
+    <string name="send_text_rb">Texte</string>
+    <string name="send_scroll_text_rb">Texte à scroller</string>
+    <string name="change_color_to_blue_rb">Changer couleur en blue</string>
+    <string name="change_color_to_red_rb">Changer couleur en rouge</string>
+    <string name="ms_enter_text_to_write">Veuillez entrer le text à ecrire !</string>
+    <string name="ms_have_to_connect">Vous devez vous connecter d\'abord</string>
+    <string name="ms_faild_to_connect">Connexion échouée</string>
+    <string name="ms_connection_success">Connexion réussie</string>
+    <string name="title_bluetooth_connection">Connexion Bluetooth</string>
+    <string name="ms_discovery_started">En recherche d\'appareil</string>
+    <string name="ms_can_see_near_devices">Vous pouvez maintenant voir les autres appareils à proximité</string>
+    <string name="ms_invite_to_active_discovery">Vous ne pourrez pas voir les appareils à proximité tant que vous n\'activez pas la decouverte</string>
+    <string name="ms_bt_permission_not_granted">Vous ne pourrez pas utiliser l\'application tant que vous n\'acceptez pas cette permission</string>
+    <string name="ms_wellcome_after_grant_bt_permission">BIENVENUE</string>
+    <string name="tv_paired_devices">Bluetooth appariés</string>
+    <string name="tv_detected_devices">Bluetooth détéctés</string>
+    <string name="scan_title">Scanner</string>
 </resources>

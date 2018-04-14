@@ -15,8 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name" />
+        android:inputType="textPersonName"/>
 
     <Button
         android:id="@+id/send_bt"
@@ -24,12 +23,63 @@
         android:layout_height="wrap_content"
         android:text="@string/label_send_bt" />
 
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/send_option_rg">
+
+        <LinearLayout
+            android:id="@+id/send_text_horizontal_ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <RadioButton
+                android:id="@+id/send_text_rb"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:checked="true"
+                android:text="@string/send_text_rb" />
+
+            <RadioButton
+                android:id="@+id/send_scroll_text_rb"
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:layout_height="wrap_content"
+                android:text="@string/send_scroll_text_rb" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/change_color_horizontal_ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/change_color_blue_rb"
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:layout_height="wrap_content"
+                android:text="@string/change_color_to_blue_rb" />
+
+            <RadioButton
+                android:id="@+id/change_color_red_rb"
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:layout_height="wrap_content"
+                android:text="@string/change_color_to_red_rb" />
+        </LinearLayout>
+    </RadioGroup>
+
     <TextView
         android:id="@+id/output_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:gravity="center"
-        android:text="TextView" />
+        android:gravity="start"
+        android:textSize="17sp"
+        android:textStyle="bold" />
 
 </LinearLayout>

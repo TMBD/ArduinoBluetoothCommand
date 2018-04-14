@@ -5,7 +5,7 @@
     <item
         android:id="@+id/action_refresh"
         android:orderInCategory="100"
-        android:title="Refresh"
+        android:title="@string/scan_title"
         app:showAsAction="always" />
 
 

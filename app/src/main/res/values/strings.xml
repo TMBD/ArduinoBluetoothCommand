@@ -1,9 +1,27 @@
 <resources>
     <string name="app_name">ArduinoBluetoothCommand</string>
     <string name="action_settings">Settings</string>
-    <string name="ms_Bluetooth_not_suppoted">You device doesn\'t support bluetooth</string>
+    <string name="ms_Bluetooth_not_suppoted">You device doesn\'t support bluetooth !</string>
     <string name="ms_can_paire_bluetooth">Your bluetooth is enable now, you can paire with other devices</string>
     <string name="ms_invite_enable_bluetooth">To pair with other devices, you have to enable you bluetooth</string>
     <string name="robotech">ROBOTECH-ESP</string>
     <string name="label_send_bt">Send</string>
+    <string name="send_text_rb">text</string>
+    <string name="send_scroll_text_rb">scroll text</string>
+    <string name="change_color_to_blue_rb">Change color to blue</string>
+    <string name="change_color_to_red_rb">Change color to red</string>
+    <string name="ms_enter_text_to_write">Enter text to write !</string>
+    <string name="ms_have_to_connect">You have to connect before</string>
+    <string name="ms_faild_to_connect">Connection failed</string>
+    <string name="ms_connection_success">Connection success</string>
+    <string name="title_bluetooth_connection">Bluetooth connection</string>
+    <string name="ms_discovery_started">Discovery started</string>
+    <string name="ms_can_see_near_devices">You can see now other near devices</string>
+    <string name="ms_invite_to_active_discovery">You couldn\'t see near devices unless you active you device discovering</string>
+    <string name="ms_bt_permission_not_granted">You can\'t use this app unless you grant this permission</string>
+    <string name="ms_wellcome_after_grant_bt_permission">WELLCOME</string>
+    <string name="tv_paired_devices">Paired Devices</string>
+    <string name="tv_detected_devices">Detected devices</string>
+    <string name="scan_title">Scan</string>
+    <string name="ms_blue_color_sent">Blue color sent</string>
 </resources>

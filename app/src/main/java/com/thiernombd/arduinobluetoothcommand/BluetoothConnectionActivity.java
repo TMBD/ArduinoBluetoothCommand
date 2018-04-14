@@ -10,6 +10,9 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -60,6 +63,11 @@ public class BluetoothConnectionActivity extends AppCompatActivity {
 
     private static final int MY_PERMISSIONS_REQUEST_BT = 1;
 
+
+    public static final int  MESSAGE_NOT_CONNECTED = 4;
+    public static final int  MESSAGE_CONNECTED = 5;
+
+
     private BluetoothAdapter mBluetoothAdapter = null;
 
     BluetoothConnectionAdapter pairedDevicesAdapter;
@@ -67,11 +75,25 @@ public class BluetoothConnectionActivity extends AppCompatActivity {
     List<_BluetoothDevice> listPairedDevices = new ArrayList<>();
     List<_BluetoothDevice> listDiscoveredDevices = new ArrayList<>();
 
+
+    public Handler connectionHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if(msg.what == MESSAGE_CONNECTED){
+                Toast.makeText(BluetoothConnectionActivity.this, R.string.ms_connection_success, Toast.LENGTH_SHORT).show();
+            }
+            else if(msg.what == MESSAGE_NOT_CONNECTED){
+                Toast.makeText(BluetoothConnectionActivity.this, R.string.ms_faild_to_connect, Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bluetooth_connection);
-        setTitle("Bluetooth connection");
+        setTitle(R.string.title_bluetooth_connection);
 
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
@@ -105,10 +127,11 @@ public class BluetoothConnectionActivity extends AppCompatActivity {
                 // app-defined int constant. The callback method gets the
                 // result of the request.
             }
-        } else {
+        }
+        /*else {
             // Permission has already been granted
             Toast.makeText(this, "Garantie", Toast.LENGTH_SHORT);
-        }
+        }*/
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -133,7 +156,7 @@ public class BluetoothConnectionActivity extends AppCompatActivity {
         pairedDevices_rv.setLayoutManager(layoutPairedDevice);
 
         //Chargement des Appareils deja apparié dans le rv
-        pairedDevicesAdapter = new BluetoothConnectionAdapter(listPairedDevices, true);
+        pairedDevicesAdapter = new BluetoothConnectionAdapter(listPairedDevices, true, connectionHandler);
         pairedDevices_rv.setAdapter(pairedDevicesAdapter);
         //---------------------------------------------------------------------------
         LinearLayoutManager layoutDiscoveredDevice = new LinearLayoutManager(this);
@@ -143,22 +166,16 @@ public class BluetoothConnectionActivity extends AppCompatActivity {
         discoveredDevices_rv.setLayoutManager(layoutDiscoveredDevice);
 
         //Chargement des Appareils decouverts dans le rv
-        discoveredDevicesAdapter = new BluetoothConnectionAdapter(listDiscoveredDevices, true);
+        discoveredDevicesAdapter = new BluetoothConnectionAdapter(listDiscoveredDevices, false, connectionHandler);
         discoveredDevices_rv.setAdapter(discoveredDevicesAdapter);
 
         /////////////////////////////////////////////////////////////////////////////////////////////
 
         ///////////////////////BROADCAST FOR DEVICE DISCOVERING//////////////////////////////////////
-        //mReceiver = new Receiver();
-        //IntentFilter orientationIF = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
-        //IntentFilter orientationIF = new IntentFilter(Intent.ACTION_CONFIGURATION_CHANGED);
-        //IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
-        //this.registerReceiver(mReceiver, orientationIF);
 
-
-        IntentFilter hedsetIF = new IntentFilter(BluetoothDevice.ACTION_FOUND);
-        //IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
-        this.registerReceiver(mReceiver, hedsetIF);
+        //IntentFilter hedsetIF = new IntentFilter(BluetoothDevice.ACTION_FOUND);
+        IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
+        this.registerReceiver(mReceiver, filter);
 
 
 
@@ -188,7 +205,8 @@ public class BluetoothConnectionActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_refresh) {
 
-           /* if(!mBluetoothAdapter.isDiscovering()){
+            if(!mBluetoothAdapter.isDiscovering()){
+                discoveredDevicesAdapter.removeAllDeviceIn_rv();
                 Intent discoverableIntent =
                         new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
                 discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, DISCOVERING_DURATION);
@@ -196,12 +214,9 @@ public class BluetoothConnectionActivity extends AppCompatActivity {
             }else {
                 enableBluetooth = true;
                 if(mBluetoothAdapter.startDiscovery())
-                    Toast.makeText(BluetoothConnectionActivity.this, "Discovery started", Toast.LENGTH_SHORT).show();
-            }*/
+                    Toast.makeText(BluetoothConnectionActivity.this, R.string.ms_discovery_started, Toast.LENGTH_SHORT).show();
+            }
 
-
-            if(mBluetoothAdapter.startDiscovery())
-                Toast.makeText(BluetoothConnectionActivity.this, "Discovery started", Toast.LENGTH_SHORT).show();
         }
 
         return super.onOptionsItemSelected(item);
@@ -213,10 +228,10 @@ public class BluetoothConnectionActivity extends AppCompatActivity {
             if(resultCode == DISCOVERING_DURATION){
                 enableBluetooth = true;
                 if(mBluetoothAdapter.startDiscovery())
-                    Toast.makeText(BluetoothConnectionActivity.this, "You can see now other near devices", Toast.LENGTH_LONG).show();
+                    Toast.makeText(BluetoothConnectionActivity.this, R.string.ms_can_see_near_devices, Toast.LENGTH_LONG).show();
             }else {
                 enableBluetooth = false;
-                Toast.makeText(BluetoothConnectionActivity.this, "You couldn't see near devices unless you active you device discovering", Toast.LENGTH_LONG).show();
+                Toast.makeText(BluetoothConnectionActivity.this, R.string.ms_invite_to_active_discovery, Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -245,7 +260,7 @@ public class BluetoothConnectionActivity extends AppCompatActivity {
             String action = intent.getAction();
             if (BluetoothDevice.ACTION_FOUND.equals(action)) {
                 Log.i("MAY APPPPPPPPPPPPPPPP !","RECEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEVER");
-                Toast.makeText(BluetoothConnectionActivity.this, "The receiver that means you detected a new bluetooth device!!!", Toast.LENGTH_LONG).show();
+                //Toast.makeText(BluetoothConnectionActivity.this, "Detected a new bluetooth device!!!", Toast.LENGTH_SHORT).show();
                 // Discovery has found a device. Get the BluetoothDevice
                 // object and its info from the Intent.
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
@@ -256,7 +271,7 @@ public class BluetoothConnectionActivity extends AppCompatActivity {
                 _BluetoothDevice myBtDevice = new _BluetoothDevice(deviceName, deviceMAC, deviceClass, device);
                 discoveredDevicesAdapter.addDeviceIn_rv(0, myBtDevice);
 
-            } else Toast.makeText(BluetoothConnectionActivity.this, "blabalbaablabla", Toast.LENGTH_LONG).show();
+            }
         }
     };
 
@@ -271,7 +286,7 @@ public class BluetoothConnectionActivity extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
+                                           @NonNull String permissions[], @NonNull int[] grantResults) {
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_BT: {
                 // If request is cancelled, the result arrays are empty.
@@ -280,16 +295,15 @@ public class BluetoothConnectionActivity extends AppCompatActivity {
 
                     // permission was granted, yay! Do the
                     // contacts-related task you need to do.
-                    Toast.makeText(BluetoothConnectionActivity.this, "ok", Toast.LENGTH_LONG).show();
+                    Toast.makeText(BluetoothConnectionActivity.this, R.string.ms_wellcome_after_grant_bt_permission, Toast.LENGTH_LONG).show();
 
                 } else {
 
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
 
-                    Toast.makeText(BluetoothConnectionActivity.this, "no", Toast.LENGTH_LONG).show();
+                    Toast.makeText(BluetoothConnectionActivity.this, R.string.ms_bt_permission_not_granted, Toast.LENGTH_LONG).show();
                 }
-                return;
             }
 
             // other 'case' lines to check for other

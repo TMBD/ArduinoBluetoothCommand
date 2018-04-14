@@ -61,12 +61,14 @@ public class BluetoothHandler {
         }
 
         public void run() {
-            mmBuffer = new byte[1024];
-            int numBytes; // bytes returned from read()
+
 
             // Keep listening to the InputStream until an exception occurs.
             while (true) {
                 try {
+                    mmBuffer = new byte[1024];
+                    int numBytes; // bytes returned from read()
+
                     // Read from the InputStream.
                     numBytes = mmInStream.read(mmBuffer);
                     // Send the obtained bytes to the UI activity.
@@ -87,9 +89,9 @@ public class BluetoothHandler {
                 mmOutStream.write(bytes);
 
                 // Share the sent message with the UI activity.
-                Message writtenMsg = mHandler.obtainMessage(
+                /*Message writtenMsg = mHandler.obtainMessage(
                         MessageConstants.MESSAGE_WRITE, -1, -1, mmBuffer);
-                writtenMsg.sendToTarget();
+                writtenMsg.sendToTarget();*/
             } catch (IOException e) {
                 Log.e(TAG, "Error occurred when sending data", e);
 

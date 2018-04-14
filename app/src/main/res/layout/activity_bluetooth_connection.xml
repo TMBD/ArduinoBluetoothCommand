@@ -17,18 +17,16 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.02"
             android:background="?attr/colorButtonNormal"
             android:gravity="center"
-            android:text="Paired Devices"
+            android:text="@string/tv_paired_devices"
             android:textSize="15sp"
             android:textStyle="bold" />
 
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/pairedDevices_rv"
-            android:layout_weight="0.87" />
+            android:id="@+id/pairedDevices_rv"/>
     </LinearLayout>
 
     <LinearLayout
@@ -40,7 +38,7 @@
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Detected devices"
+            android:text="@string/tv_detected_devices"
             android:background="?attr/colorButtonNormal"
             android:gravity="center"
             android:textSize="15sp"
